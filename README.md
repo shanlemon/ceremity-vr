@@ -1,1 +1,3 @@
 # ceremity-vr
+
+**"Better description"**
