@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ControllerCollision : MonoBehaviour {
 
-	void Start () {
-		
-	}
-	
-	void Update () {
-		
+	void Start() {
+
 	}
 
-    void OnTriggerEnter(Collider collider)
-    {
-        if(collider.tag.Equals("Breakable"))
-        {
-            collider.GetComponent<Breakable>().DoBreak();
-        }
-    }
+	void Update() {
+
+	}
+
+	void OnTriggerEnter(Collider collider) {
+		if (collider.tag.Equals("Breakable")) {
+			collider.GetComponent<Breakable>().DoBreak();
+		}
+	}
 }
