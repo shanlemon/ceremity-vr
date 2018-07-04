@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33347126601357372}
   - component: {fileID: 23410445566366166}
   - component: {fileID: 65332740220781124}
-  - component: {fileID: 114167966429938274}
   - component: {fileID: 114720996545036088}
   - component: {fileID: 114459950431563862}
   - component: {fileID: 114135369067917222}
@@ -62,6 +61,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -142,18 +142,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: {x: 0, y: 0, z: -5}
---- !u!114 &114167966429938274
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1931914039762228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b7a72be18448a547925968cca3293cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deathDelay: 0
 --- !u!114 &114459950431563862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -165,8 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 426684358b3bb5e47ae43e03f86eedf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Axes: 0
-  threshold: 0
+  Axes: 2
+  threshold: -5
 --- !u!114 &114720996545036088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -178,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aef6f15c63157448992dcd925d1d4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathDelay: 0
   x: 1
   y: 1
   z: 1

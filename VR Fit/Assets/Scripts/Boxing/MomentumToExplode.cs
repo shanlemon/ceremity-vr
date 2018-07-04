@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using Valve.VR.InteractionSystem;
 
-[RequireComponent(typeof(Breakable))]
-public class MomentumToExplode : MonoBehaviour {
+public class MomentumToExplode : Breakable {
 
 	[Header("Which axis do you want to check?")]
 	public bool x;
@@ -15,73 +14,67 @@ public class MomentumToExplode : MonoBehaviour {
 	public bool RightController;
 	public bool LeftController;
 
-	//Velocity Estimators
-	private VelocityEstimator rightVelocityEstimator;
-	private VelocityEstimator leftVelocityEstimator;
-
 	//Controller Velocities
 	private Vector3 rightControllerVelocity;
 	private Vector3 leftControllerVelocity;
 
 	private Rigidbody rb;
 
-	private Breakable breakable;
-
-
 	// Use this for initialization
 	void Start() {
-		rightVelocityEstimator = ControllerReference.RightFist.GetComponent<VelocityEstimator>();
-		leftVelocityEstimator = ControllerReference.LeftFist.GetComponent<VelocityEstimator>();
-		breakable = GetComponent<Breakable>();
 		rb = GetComponent<Rigidbody>();
 	}
 
-	// Update is called once per frame
-	void Update() {
-		rightControllerVelocity = rightVelocityEstimator.GetVelocityEstimate();
-		leftControllerVelocity = leftVelocityEstimator.GetVelocityEstimate();
 
+	void FixedUpdate() {
+		rightControllerVelocity = ControllerReference.rightVelocityEstimator.GetVelocityEstimate();
+		leftControllerVelocity = ControllerReference.leftVelocityEstimator.GetVelocityEstimate();
 
+		Debug.Log(ControllerReference.rightVelocityEstimator.GetVelocityEstimate());
+		Debug.Log(ControllerReference.leftVelocityEstimator.GetVelocityEstimate());
 	}
 
-	public void CheckToExplode() {
+	public override void DoBreak() {
+		float vel = GetTargetAxisVelocity();
+		Debug.Log("Velocity was " + vel);
+		if (checkExplode(vel)) {
+			base.DoBreak();
+		} else {
+			FallObj();
+		}
+	}
+	
+	public float GetTargetAxisVelocity() {
 		if (RightController) {
 			if (x)
-				checkExplode(rightControllerVelocity.x);
+				return (rightControllerVelocity.x);
 			if (y)
-				checkExplode(rightControllerVelocity.y);
+				return (rightControllerVelocity.y);
 			if (z)
-				checkExplode(rightControllerVelocity.z);
+				return (rightControllerVelocity.z);
+			
 		}
 		if (LeftController) {
 			if (x)
-				checkExplode(leftControllerVelocity.x);
+				return (leftControllerVelocity.x);
 			if (y)
-				checkExplode(leftControllerVelocity.y);
+				return (leftControllerVelocity.y);
 			if (z)
-				checkExplode(leftControllerVelocity.z);
+				return (leftControllerVelocity.z);
 		}
+		string everything = "right: " + rightControllerVelocity.x + " " + rightControllerVelocity.y + " " + rightControllerVelocity.z + "\n left: " + leftControllerVelocity.x + " " + leftControllerVelocity.y + " " + leftControllerVelocity.z;
+		Debug.Log("everything bad" + everything);
+		return 0;
 	}
 
-
+	private bool checkExplode(float speed) {
+		return speed >= explodeVelocity;
+	}
 
 	private void FallObj() {
 		rb.velocity = Vector3.zero;
 		rb.useGravity = true;
 		Destroy(gameObject, 5);
 	}
-
-	private void checkExplode(float speed) {
-		if (speed > explodeVelocity) {
-			breakable.Break();
-			Debug.Log("Explode");
-		} else {
-			FallObj();
-			Debug.Log("Fall");
-		}
-	}
-
-
-
 
 }

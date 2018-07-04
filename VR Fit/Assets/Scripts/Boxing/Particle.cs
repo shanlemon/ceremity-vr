@@ -12,5 +12,7 @@ public class Particle : MonoBehaviour {
 
 	void spawnParticle() {
 		GameObject obj = Instantiate(deathObjectPrefab, transform.position, Quaternion.identity);
+
+		
 	}
 }
